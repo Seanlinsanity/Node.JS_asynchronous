@@ -21,9 +21,9 @@ const promise2 = new Promise((resolve) => {
 })
 
 Promise.all([promise1, promise2])
-    .then(result => console.log(result))
+    .then(result => console.log(result)) //result is an array
     .catch(error => console.log(error.message))
 
-    Promise.race([promise1, promise2])
-    .then(result => console.log(result))
+Promise.race([promise1, promise2])
+    .then(result => console.log(result)) //result is the fatest completion one.
     .catch(error => console.log(error.message))

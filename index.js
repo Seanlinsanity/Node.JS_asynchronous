@@ -2,11 +2,28 @@ console.log('Before')
 
 //Asynchronous
 //getUser(1, readUser)
-const promise = getUser(1)
-promise
-        .then(user => getRepositories(user.gitHubUsername))
-        .then(repos => {console.log('First Repository: ', repos[0])})
-        .catch(err => console.log("Error: ", err.message))
+
+//Promise
+// const promise = getUser(1)
+// promise
+//         .then(user => getRepositories(user.gitHubUsername))
+//         .then(repos => {console.log('First Repository: ', repos[0])})
+//         .catch(err => console.log("Error: ", err.message))
+
+//Async and Await Approach
+async function displayRepository(){
+    try {
+        const user = await getUser(1)
+        const repos = await getRepositories(user.gitHubUsername)
+        console.log('Await First Repository: ', repos[0])
+    }
+    catch (err){
+        console.log('Await Error: ', err.message)
+    }
+}   
+
+displayRepository()
+
 
 console.log('After')
 
@@ -15,6 +32,7 @@ function getUser(id){
         setTimeout(() => {
             console.log('Reading a user from a database')
             resolve({id: id, gitHubUsername: 'Sean'})
+            //reject(new Error('Promise reject error message'))
         }, 2000)
     })
 }
@@ -25,8 +43,6 @@ function getUser(id){
 //             callback({id: id, gitHubUsername: 'Sean'})
 //         }, 2000)
 // }
-
-
 
 function readUser(user){
     getRepositories(user.gitHubUsername, callGitHubRepositories)
